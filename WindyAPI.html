@@ -1,0 +1,326 @@
+<html>
+  <head>
+<script type="text/javascript" src="dist/leaflet-control-credits.js"></script>
+<link rel="stylesheet" href="dist/leaflet-control-credits.css" />
+    <script src="https://unpkg.com/leaflet@0.7.7/dist/leaflet.js"></script>
+    <script src="https://api4.windy.com/assets/libBoot.js"></script>
+    <style>
+  		#windy {
+  			width: 100%;
+  			height: 540px;
+
+				}
+
+/* edit background of popup */
+
+.leaflet-popup-content-wrapper {
+/* the last number is opacity */
+background: rgba(43, 51, 63, 0.9) !important;
+}
+
+/* removes triangle below popup */
+.leaflet-popup-tip {
+    background: rgba(0, 0, 0, 0) !important;
+    box-shadow: none !important;
+}
+
+
+/* change size of hike photo */
+.my-popup img {
+    width: 100px;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* chose colour and font sizeof hike name */
+.my-popup h2 {
+    color: rgba(181, 204, 124, 1);
+    font-size:12px;
+	font-family: Futura; /* change which font you want here */
+	text-align:center;
+} 
+
+
+.dropbtn {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.dropdown {
+    position: fixed;
+    top: 363; 
+    left: 9.7%;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.dropdown-content1 {
+    background-color: rgba(43, 51, 63, 0.9);
+    color: rgba(181, 204, 124, 1);
+    font-family: Futura; /* change which font you want here */
+    font-size:14px;
+    padding: 4px 0;
+    position: absolute;
+    z-index: 1;
+    text-align:center;
+    cursor: pointer;
+    display: none;
+    min-width: 90px;
+    box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.2);
+}
+
+
+.dropdown-content2 {
+    background-color: rgba(43, 51, 63, 0.9);
+		color: rgba(181, 204, 124, 1);
+		font-family: Futura; /* change which font you want here */
+    font-size:14px;
+    padding: 4px 0;
+    position: absolute;
+    z-index: 1;
+		text-align:center;
+		top:51px;
+		display: none;
+		min-width: 90px;
+    box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.2);
+		cursor: pointer;
+}
+
+.dropdown-subcontent1 {
+    background-color: rgba(43, 51, 63, 0.9);
+    color: rgba(181, 204, 124, 1);
+    font-family: Futura; /* change which font you want here */
+    font-size:14px;
+    border-radius: 6px;
+    padding: 6px 0;
+    position: absolute;
+    z-index: 1;
+		text-align:center;
+		top:1px;
+    display: none;
+    min-width: 160px;
+    box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.2);
+    left: 105%;
+}
+
+.dropdown-subcontent2 {
+    background-color: rgba(43, 51, 63, 0.9);
+    color: rgba(181, 204, 124, 1);
+    font-family: Futura; /* change which font you want here */
+    font-size:14px;
+    border-radius: 6px;
+    padding: 6px 0;
+    position: absolute;
+    z-index: 1;
+		text-align:center;
+		top:1px;
+		display: none;
+    min-width: 160px;
+    box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.2);
+		left: 105%;
+}
+
+.dropdown-content1 span1 {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content2 span2 {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-subcontent1 span3 {
+    color: rgba(181, 204, 124, 1);
+    font-size:12px;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-subcontent2 span4 {
+    color: rgba(181, 204, 124, 1);
+    font-size:12px;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content1 span1:hover {background-color: rgba(92, 104, 63, 1);}
+.dropdown-content2 span2:hover {background-color: rgba(92, 104, 63, 1);}
+.dropdown:hover .dropdown-content1 {display: block;}
+.dropdown:hover .dropdown-content2 {display: block;}
+.dropdown-content1:hover .dropdown-subcontent1 {display: block;}
+.dropdown-content2:hover .dropdown-subcontent2 {display: block;}
+.dropdown:hover .dropbtn {background-color: rgba(92, 104, 63, 1);}
+
+  	</style>
+  </head>
+  <body>
+    <div id="windy"></div>
+<div class="dropdown">
+<a class="dropbtn" href="https://www.forgesa.com"><img style="position: fixed; top: 450; left: 22; border: 0; height:40 ;" src="https://lh3.googleusercontent.com/8lkD56Z3ACcxIt1rZPxhCRUaaom_Rn0J5KoEQe3XuFjIPc5vVT1J2iY9Lba4CqY0MlRjKq6SYuva8UNDDZkx6uqGFX35ZVV5na05VqDxHiQYu_vAntxYWveL3_QD9UpW_DuUwEdQhziT3OuLW4G2geIdjrtHCQ-Rj2vE6_iZNWUG0rVs0nMXfQfvpK2ybN6Sp2ka5q0qgDm80j5ZJUqOBf_LHBuu6-ooH72ZeJQQyAVSF_n1K3HTYXglLZvhu8MBplq9A5o5hoU1kwQ-q0rTNQ710PGdU2ZpOOgZWxuf-hTOe1lLIyonq1cn_6oIqb0ELmEk4ASA8v57-R_fRklQglHYo4Jsn32we2FKeB_ACKQjGA-xWYAOuGwEAgevkJkB1k_F-TNnafOkqAL2942Smzzfm0lqr6RY53NILAopYkzK7R4xOHSACm5qfWERn7NXfm1HSP3YiruBC8mcyWmVD81juVG4cMH5_CsAP9mh8XvYLDwnhzdq7oxcHL4v1vQ2Cyrlq_Mf-6qkmtUJkLZMXL6dmTWc1fdt3ZMG8lvEnPjBH6aWnhbN7VV-IoLQ8phFgqO_lur9No41TxR7GnTi69Dm1d6iPsVejegSaQ52TYISw76jn2SdCXBZ0vTs5pl0iCEBS8KI3rBSfCHxV-gSl4_ZSSw7uK8x=w200-h100-no
+"></a>
+
+</div>
+<div class="dropdown">
+<a class="dropbtn"><img style="position: fixed; top: 458; left: 108; border: 0; height:20 ;" src="https://lh3.googleusercontent.com/yzmIzAJeGLzd3ZtrJ_QmaT5feKuZJ2oxOUbQRFy8ElYCfdW0uysNkrrihw-wzUgYY9STmIZZKoO9a9cL08yh7-UbBIY-Nr1pTXtKyAOSKQ6NnnWTbWJSJgJkFseNT7mI8aoK4F4eNVgrdfPndeVaNFC91lvBUdrNM3wBp1Pk1SJZBFZf2hiER9aVnCXzIsR-WoGEcgLQzadoRfJLFdISCFCtCTPo9hcT7eZNGvwqIfSEOUgsLIm5lqHMLWMiWOZGPFi2sKXyNQdR3azwTE_kPNjxn6LCBfTt5EnMTHx2-viLqg35ujRuh2d-zk8cWVT4g5PvL2nv7e_2tMMSuA2brv_g9MPQGoByUaokjBGV3dVMKCkMP8PGo3336TzziGbRluWXEkJEzdHcq8trKviisGeUt3dIc-lBra8Qxb7YCkNfuk3HT8C3v0KQnzeNHQ0500kBmrE9fpyeXff8HIcckUQWWomv9ETWVcfFZRw5F8CqITLp54Nh0bg8qM1jEu5NljM42f3WPR4oEqeRQc8zNfahvmOZAPep-fm1NEhojTlv93k-_o06dqyocDfNlF4OJP6pJbbbIMJS7rDhor39cRSG-QkvaLglIrmIakg=s32-no"></a>
+      <ul class="dropdown-content1">
+        <span1 class="popuptext" tabindex="-1">Hikes</span1>
+              <ul class="dropdown-subcontent1">
+      <li> <span3 class="popuptext"  tabindex="-1">Click on the footprints to choose a hike and click the picture for more details.</span3></li>
+        </ul>
+                </ul>
+      <ul class="dropdown-content2">
+     	<span2 class="popuptext"  tabindex="-1">Forecast</span2>
+            <ul class="dropdown-subcontent2">
+      <li> <span4 class="popuptext"  tabindex="-1">Click on the wind the icon in the top right of the map to change the overlay.</span4></li>
+        </ul>
+    </ul>
+</div>
+
+    <script>
+		
+    const options = {
+                // Your API key
+                key: 'A7hUePoZN34I6zbgD5ef2rcu3wEVwL8x',
+                // Put additional console output
+                verbose: true,
+                // where the map starts and how zoomed in it is
+                lat: -34.115702, 
+                lon: 18.380309,
+                zoom: 10,
+								}
+								
+    // Initialize Windy API
+    windyInit( options, windyAPI => {
+        // windyAPI is ready, and contain 'map', 'store',
+        // 'picker' and other usefull stuff
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// TO CHANGE OVERLAY
+    var overlay = W.store.get('overlay')
+    // 'wind' ... actually used overlay
+    var allowedOverlays = W.store.getAllowed('overlay')
+    // ['wind', 'rain', ... ] ... list of allowed values
+    W.store.set('overlay','wind') // !!CHANGE HERE!!
+    // true ... Metric was changed to rain
+    W.store.on('overlay', ovr => {
+        // Message will be emitted only if value was valid and actually changed
+        console.log('Wow, overlay has been chnaged to', ovr)
+    })
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// CHANGE UNITS OF WIND HERE
+    W.overlays.wind.metric
+    // 'kt' .. actually selected metric for wind overlay
+    W.overlays.wind.listMetrics()
+    // ['kt', 'bft', 'm/s', 'km/h', 'mph'] .. available metrics
+    W.overlays.wind.setMetric('km/h')
+    // Metric for wind was changed to bft
+    W.broadcast.on('metricChanged', (overlay,newMetric) => {
+        // Any changes of metric can be observed here
+    })
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        const { map } = windyAPI //makes map
+        // .map is instance of Leaflet map
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        var ForgeIcon = L.icon({
+   			 iconUrl: 'https://httpsimage.com/v2/35175d4c-0c3b-46e4-8586-8165f3c743a9.png',  // add url of icon image
+   			 //shadowUrl: 'leaf-shadow.png', // add url of icon shadow
+   			 iconSize:     [18, 18], // size of the icon
+   			 //shadowSize:   [50, 64], // size of the shadow
+   			 iconAnchor:   [8, 10], // offset of marker
+   			 //shadowAnchor: [4, 62],  // the same for the shadow
+   			 popupAnchor:  [0, -10] // point from which the popup should open relative to the iconAnchor 
+		});
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+// puts shadow behind selected hike icon
+		map.on('popupopen',function(e) {
+  e.popup.highlight = L.circleMarker(e.popup.getLatLng(), { radius: 14 , opacity: 0, fillColor: "#000000", fillOpacity: .3 }).addTo(map);
+});
+
+map.on('popupclose',function(e) {
+  map.removeLayer(e.popup.highlight);
+});	
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	
+ // MAKE MARKERS WITH POP OF LOCATION NAME
+ //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	var marker1 =	L.marker([-33.935243, 18.388977], {icon: ForgeIcon}).addTo(map).bindPopup('<h2>Lions Head</h2><a href="https://www.forgesa.com/find-your-path/lions-head" target="_blank"><img src="https://lh3.googleusercontent.com/4lSKNUa95kThx1TcQxqAZz0b8U8FLIbBrl9eMACdM948hOJ4IQ2me2uqIfBVUo_m9Va_X4Lc2gFaY1vGeENQtNQsmjo_wKjDHIlzK93vj07gZXxj9Zxpi4o0mHRYSW7BL3pa3nm62h3r9I_syxMJovzZAkZuE6UsR06qPAcJvcv5chN71esEv4Sdcv9xwulCHnn-JsptxVL4SiXPY0KEaC5lZmUqDkHSDNRht1dDpHgxiA_2u2V7kq2JF3oagNUqqG7ABRgqZk6bNHA8-r8PUQAnXOktc2w5JUA0S_rTfF7s_DlFz8nt4vEj-AHjfYHuXCYmjY12kCkJPDAgEPTo8UZlw_m5PuDRgeduCmFC86cIvZew8DHvpHcMv653ThjxrPFVqFPoZELZRyKwSkdbNVVXOIkhScwWHYWwIKDAs-r9GPlZptzmCEaqtMBD42sruUELFJwbOXsePheY885XqFEH_vi7sdUduzcwIJZ6m-C_WMVwoyOu5zfX_BRBAS3po4DY9BnKqFRT0LxALSPmUVYFuj4RP6IkD6L11-ttwxbfCCh3ufnbkSMvzy9u4mg3MJd4fQ1oTs9BfLN1TeTfjIYMNE-6DeY42Dr4Fppny5AnfnXX3897v2f51D4V6InO0BYDnp9E7yrk4HsnrVIRY_tTxVN-uhbu=s313-no"></a>',{className: 'my-popup'
+});
+// makes popup show from mouse hover
+marker1.on('mouseover', function(event){ //dont forget to change the name of the marker from marker1
+  marker1.openPopup();
+});
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	
+	var marker2 =	L.marker([-33.954848, 18.439982], {icon: ForgeIcon}).addTo(map).bindPopup('<h2>Devils Peak</h2><a href="https://www.forgesa.com/find-your-path/devils-peak" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a8/Lion%27s_Head_from_Signal_Hill.jpg"></a>',{className: 'my-popup'
+});
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	
+	var marker3 =	L.marker([-33.966829, 18.425585], {icon: ForgeIcon}).addTo(map).bindPopup('<h2>Maclears Beacon</h2><a href="https://www.forgesa.com/find-your-path/maclears-beacon" target="_blank"><img src="https://lh3.googleusercontent.com/YIGwnvzUzMQEHkDeRQptgYyxMymWMPoeMzJf0We0rsehynt9rgvs4sx0lOt3cnJ8ih87Geq3f6Om3_P3auiIKNnkPnr-y_HY-dw9Js8Zztn587YL8Q_yKtLb6fp780p9D662F2E8bOFvQ_1gMkYaoLIpCdvyYfRFkqVeZUKUr360NhQsumllf_Xu9GEwcs665SgAfLPsC8GdtssisGU3ttA34Ab7Pw9IXPtl1scstA2-QcsSvnnhDi2fOIZ0rQvdrjoyqGj_KqLRp445VPf4lktZVlpR09D4SGWjXYUNTGLG2sLkQNC0syGfx8I2tIZDom5h9MeGb5a-IershuOLf_rVU-o_cpRDECC-zvfVP1mqbWM0DfOvkHCJ-oBqX8mIQ_zngzxWAsdM3IKoS92VnM6_bbBo_eYVVS1bx79S2aNbH3dhCi4xjJP616ZDYo8jqqouNpyRK69RI_-xAgijoDX0Tcx0FQJXk3LIZjpimCB4tg-2nQDQKzZQVs1PVjZy4mhtOqVPsqtrmzVIIGijbH3OmXTz4dLa423AZkierU4rc8ut_8pJQdDvtHEfCl6KbBhSXu4_k3aYp306fRnUl0ft7vnC8Pg_xJnA0jzQYu72AUPr57lbRZ0s7M8BI0uhUSFwwm0HqoBVCa7QG9W6SI0lN1gvb6Sk=s313-no"></a>',{className: 'my-popup'
+});
+
+// etc.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// This function creates a pop up everytime you click on the map that says "You clicked the map at" the coordinates of that place
+
+/*
+    var popup = L.popup();
+		function onMapClick(e) {
+    		popup
+        		.setLatLng(e.latlng)
+        		.setContent("You clicked the map at " + e.latlng.toString())
+        		.openOn(map);
+}
+map.on('click', onMapClick);
+*/
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Flag that shows wind, rain etc depending on map base layer when you click on the map (can drag and move it)           
+        const { picker, utils, broadcast } = windyAPI
+        picker.on('pickerOpened', latLon => {
+            // picker has been opened at latLon coords
+            let { lat, lon, values, overlay } = picker.getParams()
+            // -> 50.4, 14.3, 'wind', [ U,V, ]
+            let windObject = utils.wind2obj( values )
+						console.log( windObject )
+        })
+
+
+        picker.on('pickerMoved', latLon => {
+            // picker was dragged by user to latLon coords
+        })
+        picker.on('pickerClosed', () => {
+            // picker was closed
+        })
+        // Wait since wather is rendered
+        broadcast.once('redrawFinished', () => {
+            picker.open({ lat: -33.9549, lon: 18.4395 })
+            // Opening of a picker (async)
+        })
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    })
+
+    </script>
+  </body>
+</html>
+
+
+
+
+
